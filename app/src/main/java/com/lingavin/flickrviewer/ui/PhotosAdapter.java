@@ -9,9 +9,7 @@ import android.widget.ImageView;
 
 import com.lingavin.flickrviewer.R;
 import com.lingavin.flickrviewer.model.Photo;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -25,8 +23,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     private OnItemClickListener mListener;
     private int selectedNum = -1;
 
-    private DisplayImageOptions options;
-
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
@@ -39,13 +35,6 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         this.photos = photos;
         this.context = context;
         selectedNum = 0;
-
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.default_image)
-                .displayer(new FadeInBitmapDisplayer(400))
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
     }
 
     @Override
@@ -61,8 +50,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         Photo photo = photos.get(position);
         ImageView imageView = holder.imageView;
 
-        ImageLoader.getInstance().displayImage(photo.getMedia().getM(),
-                holder.imageView, options);
+        Picasso.with(context).load(photos.get(position).getMedia().getM())
+                .resize(96, 96).centerCrop()
+                .placeholder(R.drawable.default_image).into(imageView);
         if (position == selectedNum) {
             imageView.setActivated(true);
         } else {

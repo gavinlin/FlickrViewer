@@ -9,9 +9,7 @@ import android.widget.ImageView;
 
 import com.lingavin.flickrviewer.R;
 import com.lingavin.flickrviewer.model.Photo;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -21,15 +19,9 @@ import java.util.ArrayList;
 public class DisplayAdapter extends PagerAdapter {
 
     ArrayList<Photo> photos;
-    private DisplayImageOptions options;
 
     public DisplayAdapter(ArrayList<Photo> photos) {
         this.photos = photos;
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.default_image)
-                .displayer(new FadeInBitmapDisplayer(400))
-                .cacheOnDisk(true)
-                .build();
     }
 
     @Override
@@ -46,8 +38,9 @@ public class DisplayAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         Context context = container.getContext();
         ImageView imageView = new ImageView(context);
-        ImageLoader.getInstance().displayImage(photos.get(position).getMedia().getM(),
-                imageView, options);
+
+        Picasso.with(context).load(photos.get(position).getMedia().getM())
+                .placeholder(R.drawable.default_image).into(imageView);
         ((ViewPager) container).addView(imageView);
         return imageView;
     }

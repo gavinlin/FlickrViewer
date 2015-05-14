@@ -23,9 +23,6 @@ import com.lingavin.flickrviewer.model.Photo;
 import com.lingavin.flickrviewer.utils.Constants;
 import com.lingavin.flickrviewer.utils.FlickrJsonParser;
 import com.lingavin.flickrviewer.utils.MLog;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-
 
 import java.util.ArrayList;
 
@@ -86,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 mPhotoview.setAdapter(adapter);
-                mPhotoview.setOnScrollListener(new NewPauseOnScrollListener(ImageLoader.getInstance(),
-                        true, true));
 
                 mDisplayView.setAdapter(new DisplayAdapter(photos));
                 mDisplayView.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
