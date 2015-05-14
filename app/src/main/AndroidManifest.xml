@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.lingavin.flickrviewer.ui.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

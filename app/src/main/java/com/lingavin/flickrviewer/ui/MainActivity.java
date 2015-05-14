@@ -1,6 +1,7 @@
 package com.lingavin.flickrviewer.ui;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
      * fetch json from flickr and parse it
      */
     private void fetchPhotos() {
+        // use volley to get json string from internet
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 Constants.STR_URL, new Response.Listener<String>() {
             @Override
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 mPhotoview.setAdapter(adapter);
 
                 mDisplayView.setAdapter(new DisplayAdapter(photos));
+
+                // set View Pager's on page change listener
+                // notify recyclerview when view page changed
                 mDisplayView.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -93,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onPageSelected(int position) {
-
+                        ((PhotosAdapter)mPhotoview.getAdapter()).setSelectedNum(position);
+                        mPhotoview.getAdapter().notifyDataSetChanged();
+                        mPhotoview.scrollToPosition(position);
                     }
 
                     @Override
@@ -108,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         strReq.setTag(TAG_STRING_OBJ);
+
+        //start fetch photo from internet
         FlickrApplication.getInstance().getRequestQueue().add(strReq);
     }
 
@@ -133,5 +142,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

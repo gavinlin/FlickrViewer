@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class FlickrJsonParser {
 
+    /**
+     * Use Gson to tranfer photo object from json string
+     * @param response json string
+     * @return photo list
+     */
     public static List<Photo> parsePhotos(String response) {
         Gson gson = (new GsonBuilder()).create();
         JsonParser parser = new JsonParser();
