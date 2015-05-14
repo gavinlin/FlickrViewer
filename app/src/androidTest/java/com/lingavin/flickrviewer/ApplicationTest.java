@@ -1,4 +1,4 @@
-package com.lingavin.flickviewer;
+package com.lingavin.flickrviewer;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
