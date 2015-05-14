@@ -1,3 +1,5 @@
+# FlickrViewer
+
 + System: osx 10.10
 + IDE: Android Studio
 + SDK Build tools: 22.0.1
