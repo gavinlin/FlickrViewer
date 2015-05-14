@@ -6,7 +6,7 @@ package com.lingavin.flickrviewer.model;
 public class Photo {
     private String title;
     private String link;
-    private String media;
+    private Media media;
     private String description;
     private String published;
     private String author;
@@ -28,11 +28,11 @@ public class Photo {
         this.link = link;
     }
 
-    public String getMedia() {
+    public Media getMedia() {
         return media;
     }
 
-    public void setMedia(String media) {
+    public void setMedia(Media media) {
         this.media = media;
     }
 
